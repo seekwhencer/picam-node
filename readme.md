@@ -40,6 +40,10 @@ Hit ***`` CTRL + Alt + Del ``*** ... on the pi - or enter: `sudo shutdown now`
 
 
 **The installation copies all the needed config files in the right place:**
+* installs node.js correctly with a new global npm folder, correct `PATH` environment and user rights 
+* npm installs `n` globally to toggle easy between different node versions
+* using node version `6.11.0` - but you can try: `n latest` after the installation
+* installs motion
 * pi users `.bashrc` file
 * german default `keyboard` scheme
 * `sudoers` file with the pi user as sudo and extended secure path pointed to the npm global folder for all users (sudo, pi)

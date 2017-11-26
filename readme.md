@@ -53,7 +53,6 @@ Hit ***`` CTRL + Alt + Del ``*** ... on the pi - or enter: `sudo shutdown now`
 ### Run it
 
     cd /data/app
-    motion start &
     npm start
 
 ### Events

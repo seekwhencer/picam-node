@@ -1,8 +1,9 @@
-var chokidar = require('chokidar');
 var Event = require('events');
 
 var Blink = require('./lib/blink.js');
 var Motion = require('./lib/motion.js');
+var Watch = require('./lib/watch.js');
+
 var Config = require('./config/app.js');
 
 var App = function (args) {
@@ -15,7 +16,7 @@ var App = function (args) {
     this.options = {};
 
     this.blink = null;
-    this.watcher = null;
+    this.watch = null;
     this.event = null;
     this.motion = null;
 
@@ -45,35 +46,18 @@ var App = function (args) {
     };
 
     this.initWatcher = function () {
-        that.watcher = chokidar.watch(that.options.watch_folder, {
-            ignored: /(^|[\/\\])\../,
-            persistent: true,
-            ignoreInitial: true
+        that.watch = new Watch();
+        that.watch.on('ready',function(){
+
         });
+        that.watch.on('new_file',function(){
 
-        that.watcher.on('add', function (path) {
-            var now = parseInt(Date.now());
-            console.log(' ADDED FILE: ', path, now, (now - that.last_move));
-
-            if (now - that.last_move > that.options.movement_timeout || that.last_move === false) {
-                that.emit('movement_start');
-            }
-            clearTimeout(that.timeout_movement_stop);
-            that.timeout_movement_stop = setTimeout(function () {
-                that.emit('movement_stop');
-            }, that.options.movement_timeout);
-
-            that.last_move = now;
-            that.blink.trigger(7);
         });
-
-        that.on('movement_start', function () {
-            console.log(' MOVEMENT START');
+        that.watch.on('movement_start', function () {
             that.blink.turnOn(12);
         });
 
-        that.on('movement_stop', function () {
-            console.log(' MOVEMENT STOP');
+        that.watch.on('movement_stop', function () {
             that.blink.turnOff(12);
         });
     };

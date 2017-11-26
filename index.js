@@ -51,7 +51,7 @@ var App = function (args) {
 
         });
         that.watch.on('new_file',function(){
-
+            that.blink.trigger(7);
         });
         that.watch.on('movement_start', function () {
             that.blink.turnOn(12);

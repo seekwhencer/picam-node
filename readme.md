@@ -32,7 +32,7 @@ This is node.js app works with motion on a raspberry pi 3.
       sudo sh /data/app/script/install.sh
       
 After the installation should be a reboot useful.
-Hit ***`` CTRL + Alt + Del ``***
+Hit ***`` CTRL + Alt + Del ``*** ... on the pi - or enter: `sudo shutdown now`
       
 ### Run it
 
@@ -40,4 +40,17 @@ Hit ***`` CTRL + Alt + Del ``***
     motion start &
     npm start
 
+### Events
+
+#### app
+
+* movement_start, `[]`
+* movement_stop, `[]`
+
+#### blink
+
+* setup_complete, `[]`
+* setup_pin_error, `[err, pin, initial]`
+* setup_pin_before, `[pin, initial]`
+* setup_pin_complete, `[pin, initial]`
 

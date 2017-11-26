@@ -15,6 +15,7 @@ sudo cp /data/app/script/config/sudoers /etc/sudoers
 sudo cp /data/app/script/config/.bashrc /home/pi/.bashrc
 sudo cp /data/app/script/config/keyboard /etc/default/keyboard
 sudo cp /data/app/script/config/motion.conf /etc/motion/motion.conf
+sudo cp /data/app/script/config/config.txt /boot/config.txt
 
 . /home/pi/.bashrc
 

@@ -43,7 +43,11 @@ var App = function (args) {
     this.initMotion = function () {
         that.motion = new Motion();
         that.motion.on('ready', function(){
-            that.initWatcher();
+            //that.initWatcher();
+        });
+
+        that.motion.on('new_file', function () {
+            that.blink.trigger(7);
         });
 
         that.motion.on('movement_start', function () {
@@ -59,10 +63,6 @@ var App = function (args) {
         that.watch.on('ready', function () {
             // ... dead end
         });
-        that.watch.on('new_file', function () {
-            that.blink.trigger(7);
-        });
-
     };
 
     // on event wrapper

@@ -33,6 +33,12 @@ This is node.js app works with motion on a raspberry pi 3.
       
 After the installation should be a reboot useful.
 Hit ***`` CTRL + Alt + Del ``*** ... on the pi - or enter: `sudo shutdown now`
+    
+The installation copies all the needed config files in the right place:
+* pi users `.bashrc` file
+* german default `keyboard` scheme
+* `sudoers` file with the pi user as sudo and extended secure path pointed to the npm global folder for all users (sudo, pi)
+* `motion.config` file configured with reachable stream and "UI" over the local network on port 8080 and 8081
       
 ### Run it
 

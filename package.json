@@ -1,0 +1,15 @@
+{
+  "name": "picam-node",
+  "version": "0.0.1",
+  "description": "picam",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^1.7.0",
+    "rpi-gpio": "^0.9.1"
+  }
+}

@@ -1,0 +1,4 @@
+module.exports = {
+    movement_timeout: 2000,
+    watch_folder: '/data/motion/'
+};

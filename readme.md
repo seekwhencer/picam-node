@@ -27,7 +27,7 @@ This is node.js app works with motion on a raspberry pi 3.
  
       sudo mkdir /data
       cd /data
-      sudo git pull ... app
+      sudo git clone https://github.com/seekwhencer/picam-node.git app
       cd app
       sudo sh /data/app/script/install.sh
       

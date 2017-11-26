@@ -32,34 +32,37 @@ var App = function (args) {
             }
         }
         that.event = new Event();
-        that.initMotion();
-    };
-
-    this.initMotion = function () {
-        that.motion = new Motion();
-        that.motion.on('ready',that.initBlink);
+        that.initBlink();
     };
 
     this.initBlink = function () {
         that.blink = new Blink();
-        that.blink.on('ready',that.initWatcher);
+        that.blink.on('ready', that.initMotion);
+    };
+
+    this.initMotion = function () {
+        that.motion = new Motion();
+        that.motion.on('ready', function(){
+            that.initWatcher();
+        });
+
+        that.motion.on('movement_start', function () {
+            that.blink.turnOn(12);
+        });
+        that.motion.on('movement_stop', function () {
+            that.blink.turnOff(12);
+        });
     };
 
     this.initWatcher = function () {
         that.watch = new Watch();
-        that.watch.on('ready',function(){
-
+        that.watch.on('ready', function () {
+            // ... dead end
         });
-        that.watch.on('new_file',function(){
+        that.watch.on('new_file', function () {
             that.blink.trigger(7);
         });
-        that.watch.on('movement_start', function () {
-            that.blink.turnOn(12);
-        });
 
-        that.watch.on('movement_stop', function () {
-            that.blink.turnOff(12);
-        });
     };
 
     // on event wrapper

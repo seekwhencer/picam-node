@@ -1,4 +1,6 @@
 var Event = require('events');
+var fs = require('fs');
+var keypress = require('keypress');
 
 var Blink = require('./lib/blink.js');
 var Motion = require('./lib/motion.js');
@@ -22,6 +24,7 @@ var App = function (args) {
 
     this.last_move = null;
     this.timeout_movement_stop = null;
+    this.stdin = null;
 
     this.init = function () {
         that.defaults = Object.assign(that.defaults, Config);
@@ -37,24 +40,35 @@ var App = function (args) {
 
     this.initBlink = function () {
         that.blink = new Blink();
-        that.blink.on('ready', that.initMotion);
+
+        if (that.options.motion === true)
+            that.blink.on('driver_ready', that.initMotion);
+
+        if (that.options.motion === false)
+            that.blink.on('driver_ready', function () {
+                that.blink.test();
+                that.initConsoleInput();
+            });
     };
 
     this.initMotion = function () {
         that.motion = new Motion();
-        that.motion.on('ready', function(){
+        that.motion.on('ready', function () {
             //that.initWatcher();
+            that.blink.turnOnSocket(3);
         });
 
         that.motion.on('new_file', function () {
-            that.blink.trigger(7);
+            that.blink.triggerSocket(1);
         });
 
         that.motion.on('movement_start', function () {
-            that.blink.turnOn(12);
+            that.blink.turnOnSocket(2);
+            that.blink.turnOffSocket(3);
         });
         that.motion.on('movement_stop', function () {
-            that.blink.turnOff(12);
+            that.blink.turnOffSocket(2);
+            that.blink.turnOnSocket(3);
         });
     };
 
@@ -63,6 +77,19 @@ var App = function (args) {
         that.watch.on('ready', function () {
             // ... dead end
         });
+    };
+
+    this.initConsoleInput = function () {
+        console.log(' CONSOLE MONITORING STARTED ');
+        keypress(process.stdin);
+        process.stdin.on('keypress', function (ch, key) {
+            if (key && key.ctrl && key.name == 'c') {
+                process.exit(0);
+            }
+            that.blink.toggleSocket(ch);
+        });
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
     };
 
     // on event wrapper

@@ -10,6 +10,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt-get install npm motion -y
+sudo apt-get purge node -y
 
 sudo cp /data/app/script/config/sudoers /etc/sudoers
 sudo cp /data/app/script/config/.bashrc /home/pi/.bashrc
@@ -21,10 +22,9 @@ sudo cp /data/app/script/config/config.txt /boot/config.txt
 
 sudo mkdir /data/npm-global
 sudo mkdir /data/motion
-npm config set prefix /data/npm-global
-npm install npm@latest -g
-
 sudo chown -R pi:pi /data
+
+sudo npm config set prefix /data/npm-global
 sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
 sudo chown -R $(whoami) /usr/local/
 
@@ -34,5 +34,3 @@ n 6.11.0
 
 cd /data/app
 npm install
-
-motion start && npm start

@@ -46,7 +46,7 @@ var App = function (args) {
 
         if (that.options.motion === false)
             that.blink.on('driver_ready', function () {
-                that.blink.test();
+                //that.blink.test();
                 that.initConsoleInput();
             });
     };
@@ -81,6 +81,9 @@ var App = function (args) {
 
     this.initConsoleInput = function () {
         console.log(' CONSOLE MONITORING STARTED ');
+        console.log('  Use the number keys to toggle the power sockets.');
+        console.log('  Alternatively you can use an ordinary usb remote control with number keys.');
+        console.log('  To make the console input usable, start the app in a open shell.');
         keypress(process.stdin);
         process.stdin.on('keypress', function (ch, key) {
             if (key && key.ctrl && key.name == 'c') {
@@ -110,4 +113,5 @@ var App = function (args) {
     };
 
 }(); // <-- run it instantly
+
 

@@ -113,3 +113,4 @@ if ! shopt -oq posix; then
 fi
 
 export NPM_CONFIG_PREFIX=/data/npm-global
+export PATH=/data/npm-global/bin:$PATH
